@@ -1,0 +1,68 @@
+<div class="chat-container d-flex">
+  <aside class="chat-rooms-container d-flex flex-column">
+    <div class="chat-rooms-head d-flex align-items-center justify-content-between">
+      <h6> Chat </h6>
+      <% if user_signed_in? %>
+        <button class="btn btn-default"><%= link_to 'new', new_chatroom_path %></button>
+      <% end %>
+    </div>
+    <!-- / chat-rooms-head -->
+
+
+    <div class="chat-rooms-list">
+      <% if user_signed_in? %>
+        <% current_user.chatrooms.each do |chatroom| %>
+          <%= link_to(chatroom, data: {behavior: "chatroom-link", chatroom_id: chatroom.id}) do %>
+            <div class="chat-room-item d-flex align-items-center">
+              <div class="chat-room-user-ava">
+                <%= image_tag 'chat-room-item-ava.png' %>
+                <!--<span class="new-msg-count active">2</span>-->
+              </div>
+              <!-- / chat-room-user-ava -->
+              <div class="chat-room-user-info">
+                <span class="chat-room-user-name"><%= chatroom.name %></span>
+                <div class="chat-room-last-msg d-flex justify-content-between">
+                  <span class="last-msg">Click to open</span>
+                  <span class="last-msg-time">1 min</span>
+                </div>
+                <!-- / chat-room-last-msg -->
+                <span class="chat-room-user-status offline"></span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      <!-- / chat-room-item -->
+    </div>
+    <!-- / chat-rooms-list -->
+  </aside>
+  <!-- / chat-rooms-container -->
+
+  <div class="current-chat-room-container">
+    <div class="current-chat-room d-flex flex-column justify-content-between">
+      <div class="current-chat-room-head d-flex align-items-center">
+        <h5 class="current-chat-room-user-name"><%= @chatroom.name %></h5>
+      </div>
+      <% unread_messages = false %>
+      <div data-behavior="messages" data-chatroom-id='<%= @chatroom.id %>' class="message-container">
+        <% @messages.each do |message| %>
+          <% if !unread_messages && @chatroom_user.last_read_at < message.created_at %>
+            <% unread_messages = true %>
+            <div class="strike"><span>Unread Messages</span></div>
+          <% end %>
+
+          <%= render message %>
+        <% end %>
+      </div>
+      <div class="message-form-container">
+        <%= form_for [@chatroom, Message.new], html: { class: "d-flex", name: "message_form" } do |f| %>
+          <%= f.text_field :body, rows: 1, class: "message_field", placeholder: "Type your message ...", autofocus: true %>
+          <%= button_tag type: 'submit', class: "send-btn" do %>
+            <i class="fa fa-paper-plane"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / chat-container -->

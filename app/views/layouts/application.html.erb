@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+	    <!--Google fonts-->
+	    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  </head>
+
+  <body>
+        <!-- HEADER START -->
+
+        <header id="header">
+          <div class="container d-flex align-items-center">
+            <%= link_to root_path, class: "chat-room-btn-toggle d-flex flex-column justify-content-between" do %>
+              <span class="hamburger-item"></span>
+              <span class="hamburger-item hamburger-short"></span>
+              <span class="hamburger-item"></span>
+            <% end %>
+
+            <!-- / chat-room-btn-toggle -->
+            <%= link_to_if user_signed_in?, "Chats", chatrooms_path, class: "btn btn-primary chat-btn" %>
+            <div class="user-info d-flex flex-row justify-content-between">
+              <div class="user-ava">
+                <%= image_tag 'header-user-ava.png' %>
+              </div>
+              <!-- / user-ava -->
+
+              <div class="user-data d-flex flex-column justify-content-around">
+                <% if user_signed_in? %>
+                <span class="user-name"><%= current_user.username %></span>
+                <% end %>
+
+                <div class="dropdown show">
+                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="status"><%= user_signed_in? ? 'Available' : 'Sign in' %><i class="fa fa-angle-down fa-pull-right" aria-hidden="true"></i></span>
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <% if user_signed_in? %>
+                      <a class="dropdown-item" href="#"><%= link_to "Settings", edit_user_registration_path %></a>
+                      <li role="separator" class="divider"></li>
+                      <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
+                    <% else %>
+                      <li><%= link_to "Sign Up", new_user_registration_path %></li>
+                      <li><%= link_to "Login", new_user_session_path %></li>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <!-- / user-data -->
+            </div>
+            <!-- / user-info -->
+          </div>
+          <!-- / container -->
+        </header>
+        <!-- HEADER END -->
+
+        <!-- MAIN START -->
+        <main id="main">
+          <div class="container">
+            <%= yield %>
+          </div>
+          <!-- / container -->
+        </main>
+        <!-- MAIN END -->
+  </body>
+</html>
