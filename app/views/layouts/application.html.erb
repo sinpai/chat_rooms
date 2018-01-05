@@ -22,7 +22,7 @@
             <% end %>
 
             <!-- / chat-room-btn-toggle -->
-            <%= link_to_if user_signed_in?, "Chats", chatrooms_path, class: "btn btn-primary chat-btn" %>
+            <%= link_to "Chats", chatrooms_path, class: "btn btn-primary chat-btn" if user_signed_in? %>
             <div class="user-info d-flex flex-row justify-content-between">
               <div class="user-ava">
                 <%= image_tag 'header-user-ava.png' %>
@@ -41,12 +41,13 @@
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <% if user_signed_in? %>
-                      <a class="dropdown-item" href="#"><%= link_to "Settings", edit_user_registration_path %></a>
-                      <li role="separator" class="divider"></li>
-                      <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
+                        <%= link_to "Settings", edit_user_registration_path, class: "dropdown-item" %>
+                        <li role="separator" class="divider"></li>
+                        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                     <% else %>
-                      <li><%= link_to "Sign Up", new_user_registration_path %></li>
-                      <li><%= link_to "Login", new_user_session_path %></li>
+                        <%= link_to "Signup", new_user_registration_path, class: "dropdown-item" %>
+                        <li role="separator" class="divider"></li>
+                        <%= link_to "Login", new_user_session_path, class: "dropdown-item" %>
                     <% end %>
                   </div>
                 </div>
