@@ -8,7 +8,10 @@ handleVisiblityChange = ->
 $(document).on "turbolinks:load", ->
   $(document).on "click", handleVisiblityChange
 
-  $("[data-behavior='messages']").stop().animate scrollTop: $("[data-behavior='messages']")[0].scrollHeight
+  if $("[data-behavior='messages']").html()
+      $("[data-behavior='messages']").stop().animate scrollTop: $("[data-behavior='messages']")[0].scrollHeight
+
+  $("[data-behavior='chatroom-link'][data-chatroom-id='#{$("[data-behavior='messages']").data("chatroom-id")}']").find('.chat-room-item').addClass('active')
 
   $("#new_message").on "keypress", (e) ->
     if e && e.keyCode == 13

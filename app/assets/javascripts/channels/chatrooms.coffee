@@ -20,7 +20,7 @@ App.chatrooms = App.cable.subscriptions.create "ChatroomsChannel",
         App.last_read.update(data.chatroom_id)
 
       # Insert the message
-      active_chatroom.append("<div class='message #{if data.username == $('span.user-name').text() then 'from-you' else 'to-you'}'><img src='../assets/chat-room-item-ava.png' alt=''><div class='message-text'>#{data.body}</div></div>")
+      active_chatroom.append("<div class='message #{if data.username == $('span.user-name').text() then 'from-you' else 'to-you'}'><img src='#{$('.gravatar').attr('src')}' alt=''><div class='message-text'>#{data.body}</div></div>")
       active_chatroom.stop().animate scrollTop: active_chatroom[0].scrollHeight
     else
       $("[data-behavior='chatroom-link'][data-chatroom-id='#{data.chatroom_id}']").find('.chat-room-user-status').removeClass('offline').addClass('online')

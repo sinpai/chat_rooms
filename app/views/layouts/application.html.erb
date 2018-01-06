@@ -24,8 +24,8 @@
             <!-- / chat-room-btn-toggle -->
             <%= link_to "Chats", chatrooms_path, class: "btn btn-primary chat-btn" if user_signed_in? %>
             <div class="user-info d-flex flex-row justify-content-between">
-              <div class="user-ava">
-                <%= image_tag 'header-user-ava.png' %>
+                <div class="user-ava">
+                    <%= user_signed_in? ? gravatar_for(current_user.email) : image_tag('user.png') %>
               </div>
               <!-- / user-ava -->
 

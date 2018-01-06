@@ -15,15 +15,15 @@
           <%= link_to(chatroom, data: {behavior: "chatroom-link", chatroom_id: chatroom.id}) do %>
             <div class="chat-room-item d-flex align-items-center">
               <div class="chat-room-user-ava">
-                <%= image_tag 'chat-room-item-ava.png' %>
+                  <%= gravatar_for current_user.email %>
                 <!--<span class="new-msg-count active">2</span>-->
               </div>
               <!-- / chat-room-user-ava -->
               <div class="chat-room-user-info">
                 <span class="chat-room-user-name"><%= chatroom.name %></span>
                 <div class="chat-room-last-msg d-flex justify-content-between">
-                  <span class="last-msg">Click to open</span>
-                  <span class="last-msg-time">1 min</span>
+                  <span class="last-msg"><%= chatroom.messages.last.body %></span>
+                  <span class="last-msg-time"><%= time_ago_in_words(chatroom.messages.last.created_at) %> ago</span>
                 </div>
                 <!-- / chat-room-last-msg -->
                 <span class="chat-room-user-status offline"></span>
@@ -48,10 +48,9 @@
         <% @messages.each do |message| %>
           <% if !unread_messages && @chatroom_user.last_read_at < message.created_at %>
             <% unread_messages = true %>
-            <div class="strike"><span>Unread Messages</span></div>
+              <div class="strike"><span>Unread Messages</span></div>
           <% end %>
-
-          <%= render message %>
+          <%= render partial: message, locals: {email: email_for(message.user_id)} %>
         <% end %>
       </div>
       <div class="message-form-container">

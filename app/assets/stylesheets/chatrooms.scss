@@ -350,6 +350,10 @@ input {
   flex-grow: 1;
   overflow-y: auto;
   padding: 0 15px;
+  a:hover {
+      color: #fff;
+      text-decoration: none;
+  }
 }
 
 .current-chat-room-container{
@@ -392,7 +396,7 @@ input {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80%;
+  max-width: 40%;
   display: inline-block;
 }
 
@@ -492,11 +496,12 @@ input {
 }
 
 .user-data {
-  margin-left: 25px;
+    margin-left: 25px;
+    font-size: 15px;
 }
 
 .user-data .status{
-  color: #2775a9;
+  color: #fff;
   line-height: 15px;
 }
 
@@ -507,7 +512,6 @@ input {
 .user-data .user-name{
   color: #ffffff;
   line-height: 22px;
-  font-size: 15px;
 }
 
 .message-container {
@@ -518,6 +522,7 @@ input {
 }
 
 .message-container .message {
+  padding: 0 15px;
   display: flex;
 }
 
@@ -536,6 +541,7 @@ input {
 
 .message-container .message .message-text {
   padding: 12px;
+  font-size: 14px;
   border-radius: 30px;
   max-width: 360px;
   line-height: 1.5;
@@ -573,7 +579,7 @@ input {
 
 .message-form-container form input.message_field {
   color: #8ea1b4;
-  font-size: 12px;
+  font-size: 14px;
   flex-grow: 1;
   padding-right: 20px;
 }
@@ -640,4 +646,8 @@ input {
 
 .chat-remove {
   padding-top: 10px;
+}
+
+.new-chat {
+    margin-top: 15px;
 }
